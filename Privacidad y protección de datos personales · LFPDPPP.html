@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacidad y protección de datos personales · LFPDPPP</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{--bg:#0e1726;--fg:#eaf0f7;--mut:#93a4bb;--card:#16233a;--line:#26385a;--ac:#5fd0c0;--warn:#ff9f5a;--bad:#ff6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f4f7fb;--fg:#10203a;--mut:#52627a;--card:#fff;--line:#d3dcea;--ac:#0b7f74;--warn:#b8520a;--bad:#c0392b}}
+:root[data-theme=light]{--bg:#f4f7fb;--fg:#10203a;--mut:#52627a;--card:#fff;--line:#d3dcea;--ac:#0b7f74;--warn:#b8520a;--bad:#c0392b}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.55 'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column}
+#bar{height:4px;background:var(--line);flex:none}#bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .3s}
+main{flex:1;overflow-y:auto;padding:28px 22px}
+section{max-width:860px;margin:0 auto}
+h1,h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.1;margin:0 0 .4em}
+h1{font-size:clamp(34px,7vw,64px);font-weight:800}
+h2{font-size:clamp(26px,4.5vw,40px);font-weight:700}
+.sec{color:var(--mut);font-size:14px;margin-bottom:6px}
+.lead{color:var(--mut);max-width:60ch}
+p{margin:.5em 0}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 14px}
+.tl button,.o,.b{font:500 15px 'IBM Plex Sans',sans-serif;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 14px;cursor:pointer}
+.tl button.on{background:var(--ac);border-color:var(--ac);color:var(--bg)}
+button:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+.pn{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:6px 14px 14px 6px;padding:18px 20px}
+.pn.on{display:block;animation:in .25s}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+@media(prefers-reduced-motion:reduce){.pn.on{animation:none}}
+.pn h3{margin:0 0 6px;font:700 21px 'Bricolage Grotesque',sans-serif}
+.pn ul{margin:.4em 0;padding-left:1.2em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media(max-width:640px){.cols{grid-template-columns:1fr}}
+.col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.col.s{border-top:5px solid var(--warn)}.col.g{border-top:5px solid var(--ac)}
+.col h3{margin:0 0 4px;font:700 22px 'Bricolage Grotesque',sans-serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:16px}
+.card{text-align:left;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;min-height:118px}
+.card b{display:block;font:700 19px 'Bricolage Grotesque',sans-serif}
+
+.card span{display:none;color:var(--mut);font-size:15px;margin-top:6px}
+.card.open{border-color:var(--ac)}.card.open span{display:block}
+.hint{color:var(--mut);font-size:14px;margin-top:14px}
+.qz{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.q{font:700 20px 'Bricolage Grotesque',sans-serif;margin:0 0 12px}
+.os{display:flex;flex-wrap:wrap;gap:8px}
+.o.ok{background:var(--ac);color:var(--bg);border-color:var(--ac)}.o.no{border-color:var(--bad);color:var(--bad)}
+.fb{min-height:1.5em;color:var(--mut)}
+.big{font:800 54px 'Bricolage Grotesque',sans-serif;margin:0}
+.arco{font:800 30px 'Bricolage Grotesque',sans-serif;color:var(--ac)}
+dl.pl{margin:18px 0;border-top:1px solid var(--line)}.pl dt{font:700 20px 'Bricolage Grotesque',sans-serif;padding-top:14px;color:var(--ac)}.pl dd{margin:2px 0 0;padding-bottom:14px;border-bottom:1px solid var(--line);max-width:68ch}
+nav{flex:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid var(--line)}
+nav .b{min-width:104px}nav small{color:var(--mut)}
+</style>
+</head>
+<body>
+<div id="bar"><i></i></div>
+<main id="stage" tabindex="-1"></main>
+<nav><button class="b" id="pv">Anterior</button><small id="ct"></small><button class="b" id="nx">Siguiente</button></nav>
+<script>
+const tabs=a=>'<div data-tabs><div class="tl">'+a.map((x,i)=>'<button data-i="'+i+'" class="'+(i?'':'on')+'">'+x[0]+'</button>').join('')+'</div>'+a.map((x,i)=>'<div class="pn'+(i?'':' on')+'">'+x[1]+'</div>').join('')+'</div>';
+const cards=a=>'<div class="grid">'+a.map(x=>'<button class="card" data-rv><b>'+x[0]+'</b><span>'+x[1]+'</span></button>').join('')+'</div>';
+const head=(s,t)=>'<p class="sec">'+s+'</p><h2>'+t+'</h2>';
+const G=['Nombre','Edad','Dirección','Fecha de nacimiento'],SS=['Estado de salud','Creencias religiosas','Biometría (huella)','Historial médico'];
+const cls=[...G.slice(0,3).map(x=>({q:'"'+x+'": ¿dato general o sensible?',o:['General','Sensible'],a:0,e:'Permite identificarte, pero no implica un riesgo alto si se usa bien.'})),...SS.slice(0,3).map(x=>({q:'"'+x+'": ¿dato general o sensible?',o:['General','Sensible'],a:1,e:'Afecta la esfera más íntima y su mal uso puede generar discriminación.'}))].sort(()=>Math.random()-.5);
+const final=[
+{q:'¿A quién aplica la LFPDPPP?',o:['Al gobierno','Al sector privado','A todos por igual'],a:1,e:'Empresas, escuelas privadas, hospitales y apps. El gobierno tiene leyes distintas.'},
+{q:'¿Qué autoridad vigila su cumplimiento?',o:['INAI','SAT','Banxico'],a:0,e:'El INAI vigila el cumplimiento estricto de la ley.'},
+{q:'¿Qué derecho ARCO es el "derecho al olvido"?',o:['Acceso','Rectificación','Cancelación','Oposición'],a:2,e:'Cancelación: pedir la eliminación de tus datos cuando ya no son necesarios.'},
+{q:'¿Cuál NO es un principio de protección de datos?',o:['Licitud','Finalidad','Popularidad','Calidad'],a:2,e:'Los 6: licitud, consentimiento, información, finalidad, responsabilidad y calidad.'}];
+const S=[
+'<p class="sec">Tema 3.1</p><h1>Privacidad y protección de datos personales</h1><p class="lead" style="font-size:22px">Marco legal básico en México: LFPDPPP</p>',
+head('3.1.1','Introducción')+tabs([['El cambio','<h3>De archiveros a zettabytes</h3>Pasamos de archivos físicos, lentos de copiar y limitados a un lugar, a datos digitales que se copian, procesan y comparten masivamente en segundos.'],['El riesgo','<h3>Mayor exposición</h3>Incremento exponencial en la exposición a <b>fraudes</b>, <b>robo de identidad</b> y <b>uso indebido</b> de información. Un solo incidente puede afectar a millones de personas a la vez.'],['La solución','<h3>Marcos legales</h3>Crear leyes que equilibren el desarrollo tecnológico con la protección ética de los derechos humanos. En México, esa base para el sector privado es la LFPDPPP.']]),
+head('3.1.2','¿Qué son los datos personales?')+tabs([['Definición','<h3>Cualquier información que identifica a una persona</h3>Abarca desde aspectos rutinarios (nombre, correo, teléfono) hasta detalles íntimos (salud, creencias). Basta con que permita identificar a alguien, directa o indirectamente.'],['Huella digital','<h3>Tu perfil rastreable</h3>Al usar redes, comprar en línea o estudiar, tus datos crean un perfil rastreable y procesable por sistemas informáticos. Cada interacción suma información que puede cruzarse con otras fuentes.'],['Derecho fundamental','<h3>Tú decides</h3>La privacidad permite a cada individuo decidir <b>qué</b> compartir, <b>con quién</b> y <b>con qué propósito</b>. El titular conserva el control sobre su información en todo momento.']]),
+head('3.1.2','Datos generales vs. sensibles')+'<div class="cols"><div class="col g"><h3>Generales</h3>Permiten identificarte sin representar un riesgo alto si se usan adecuadamente. Comunes en trámites cotidianos.<p><b>Ej.:</b> nombre, edad, dirección.</p></div><div class="col s"><h3>Sensibles</h3>Requieren el máximo nivel de protección legal y técnica. Afectan la esfera más íntima.<p><b>Ej.:</b> estado de salud, creencias religiosas, biometría.</p></div></div>',
+head('3.1.3','¿Qué es la LFPDPPP?')+tabs([['La ley','<h3>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (2010)</h3><b>Objetivo:</b> garantizar el tratamiento responsable, ético y seguro de la información ciudadana, devolviendo el control al titular.<p>El titular es la persona a quien corresponden los datos; el responsable es quien decide sobre su tratamiento.</p>'],['Alcance','<h3>Solo sector privado</h3>Aplica a empresas, negocios, escuelas privadas, hospitales y apps que recaban datos personales.<p>El gobierno y sus instituciones se rigen por leyes distintas.</p>'],['Autoridad','<h3>El INAI, el guardián</h3>Vigila el estricto cumplimiento de la ley en México, atiende denuncias de los titulares y puede verificar e imponer sanciones a los responsables.'],['Consecuencias','<h3>Del mal manejo de datos</h3><ul><li>Multas económicas millonarias</li><li>Suspensión temporal o definitiva de actividades</li><li>Cárcel, en casos de dolo con datos sensibles</li><li>Daño irreversible a la reputación corporativa y pérdida de confianza digital</li></ul>']]),
+head('3.1.4','Los 6 principios de la protección de datos')+'<dl class="pl"><dt>Licitud</dt><dd>Obtener datos legalmente, sin engaños ni medios fraudulentos. El tratamiento debe apegarse a lo que la ley permite.</dd><dt>Consentimiento</dt><dd>Autorización explícita del titular. Para datos sensibles el consentimiento debe ser expreso y por escrito.</dd><dt>Información</dt><dd>Explicar con total transparencia qué datos se recaban y para qué, a través del aviso de privacidad.</dd><dt>Finalidad</dt><dd>Usarlos exclusivamente para el propósito acordado. Un uso distinto requiere un nuevo consentimiento.</dd><dt>Responsabilidad</dt><dd>Resguardar y proteger la información recabada con medidas de seguridad técnicas, físicas y administrativas.</dd><dt>Calidad</dt><dd>Mantener los registros correctos, completos y actualizados mientras se conserven.</dd></dl>',
+head('3.1.5','Derechos ARCO: el control del usuario')+tabs([['Acceso','<p class="arco">Acceso</p>Saber exactamente qué información tiene la empresa sobre ti y cómo la utiliza.<p><b>En el software:</b> módulo "Mis Datos" donde el usuario visualiza todos sus registros almacenados.</p>'],['Rectificación','<p class="arco">Rectificación</p>Exigir la corrección de información inexacta, incompleta o desactualizada.<p><b>En el software:</b> función "Editar Perfil", respaldada por validación de sintaxis en el código.</p>'],['Cancelación','<p class="arco">Cancelación</p>Solicitar la eliminación de los datos cuando ya no son necesarios (derecho al olvido).<p><b>En el software:</b> botón "Eliminar Cuenta". Legalmente inicia un periodo de bloqueo antes de la supresión física.</p>'],['Oposición','<p class="arco">Oposición</p>Negarse al uso de su información en situaciones específicas, por ejemplo recibir publicidad.<p><b>En el software:</b> checkboxes de "No deseo recibir promociones". El sistema excluye ese registro del mailing.</p>'],['Ejercicio','<h3>Cómo se ejercen</h3>El titular presenta una solicitud al responsable, acreditando su identidad. La empresa debe responder en un plazo de 20 días hábiles y, si procede, hacerla efectiva en los 15 días siguientes.']]),
+head('3.1.6','El Aviso de Privacidad: la interfaz de la transparencia')+tabs([['El puente','<h3>Usuario y servidor corporativo</h3>Documento mediante el cual las organizaciones informan el ciclo de vida que tendrán los datos. Se presenta <b>antes</b> de recabarlos, para que la persona decida con información completa.'],['3 formatos','<h3>Formatos legales</h3><ul><li><b>Integral:</b> documento completo con todos los elementos</li><li><b>Simplificado:</b> resumen para registros web, con enlace al integral</li><li><b>Corto:</b> espacio mínimo, por ejemplo un SMS</li></ul>'],['4 elementos','<h3>Elementos obligatorios</h3><ul><li><b>Identidad y domicilio</b> del responsable</li><li><b>Finalidades:</b> para qué se quieren los datos</li><li><b>Transferencias:</b> si se compartirán con terceros</li><li><b>Mecanismos técnicos</b> para ejercer los derechos ARCO</li></ul>'],['Para desarrolladores','<h3>El mapa del sistema</h3>No es solo texto legal: define los límites técnicos. Si el aviso establece que no habrá rastreo de ubicación, el código del sistema no debe solicitar acceso al GPS. Aviso y código deben decir lo mismo.']]),
+head('Uso cotidiano','Tus datos están en todas partes')+tabs([['Redes sociales','<h3>Perfilación profunda</h3>Fotografías, fechas de nacimiento, interacciones.'],['E-commerce','<h3>Transacciones financieras</h3>Direcciones de entrega, teléfonos, historiales y datos bancarios.'],['Educación digital','<h3>Registros formales</h3>Calificaciones, expedientes médicos, datos familiares.'],['Streaming y videojuegos','<h3>Algoritmos de recomendación</h3>Hábitos de consumo, preferencias, ubicación.']])+'<p class="lead" style="margin-top:18px"><b>Conclusión:</b> conocer la ley y aplicar seguridad técnica es la base del bienestar digital.</p>',
+];
+const stage=document.getElementById('stage'),Q={cls,final};let n=Math.min(Math.max((parseInt(location.hash.slice(1))||1)-1,0),S.length-1);
+function quiz(el,qs){let i=0,s=0,done=0;const draw=()=>{done=0;if(i>=qs.length){el.innerHTML='<p class="q">Resultado</p><p class="big">'+s+'/'+qs.length+'</p><button class="b" data-r>Repetir</button>';return}const q=qs[i];el.innerHTML='<p class="q">'+q.q+'</p><div class="os">'+q.o.map((o,k)=>'<button class="o" data-k="'+k+'">'+o+'</button>').join('')+'</div><p class="fb" aria-live="polite"></p>'};
+el.onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.r!==undefined){i=0;s=0;draw();return}if(b.dataset.nx!==undefined){i++;draw();return}if(b.dataset.k===undefined||done)return;done=1;const q=qs[i],k=+b.dataset.k;if(k===q.a)s++;el.querySelectorAll('.o').forEach((x,j)=>{if(j===q.a)x.classList.add('ok');else if(j===k)x.classList.add('no')});el.querySelector('.fb').innerHTML=(k===q.a?'¡Correcto! ':'Casi. ')+q.e+'<br><button class="b" data-nx style="margin-top:10px">'+(i+1<qs.length?'Siguiente pregunta':'Ver resultado')+'</button>'};draw()}
+function show(){stage.innerHTML='<section>'+S[n]+'</section>';stage.scrollTop=0;stage.querySelectorAll('[data-quiz]').forEach(el=>quiz(el,Q[el.dataset.quiz]));document.querySelector('#bar i').style.width=((n+1)/S.length*100)+'%';document.getElementById('ct').textContent=(n+1)+' / '+S.length;pv.disabled=n==0;nx.disabled=n==S.length-1;pv.style.opacity=pv.disabled?.4:1;nx.style.opacity=nx.disabled?.4:1;try{history.replaceState(null,'','#'+(n+1))}catch(e){}}
+const go=d=>{n=Math.min(Math.max(n+d,0),S.length-1);show()};
+pv.onclick=()=>go(-1);nx.onclick=()=>go(1);
+addEventListener('keydown',e=>{if(e.key=='ArrowRight')go(1);if(e.key=='ArrowLeft')go(-1)});
+stage.addEventListener('click',e=>{const t=e.target.closest('[data-tabs] .tl button');if(t){const w=t.closest('[data-tabs]');w.querySelectorAll('.tl button').forEach((b,i)=>b.classList.toggle('on',b===t));w.querySelectorAll('.pn').forEach((p,i)=>p.classList.toggle('on',i==+t.dataset.i));return}const c=e.target.closest('[data-rv]');if(c)c.classList.toggle('open')});
+show();
+</script>
+</body>
+</html>
